@@ -1,4 +1,7 @@
 # Node.js Express JSON API - CRUD Stickers
+https://github.com/w3cj/CRUD-stickers-server
+https://www.youtube.com/watch?v=xFsaRVNLtxI&list=PLM_i0obccy3uwR6ZYa7QE03xDRAqs4Aso&index=1&ab_channel=CodingGarden
+
 
 We'll be using:
 * Postgres for our database
@@ -31,9 +34,20 @@ We'll be using:
 * Create database
 * Initialize knex project
   * Install knex and pg
+    - npm i knex pg
   * Create knexfile.js
+    - knex init
 * Create sticker table migration
+  - Table: Sticker
+  ==================================
+  id          | serial(PK)
+  title       | text
+  description | text
+  rating      | float
+  url         | text
+  - knex migrate:latest
 * Seed sticker table with sample data
+  - knex seed:run
 * Convert Express App to JSON API
   * Remove view rendering
   * Remove routes folder
@@ -48,14 +62,41 @@ We'll be using:
   * Create route
 * Setup tests
   * Install mocha, chai and supertest
+    - npm i -D mocha chai supertest
   * Add a test database connection
   * Add npm test script
     * Drop/Create database
   * Create before
     * Run migrations/seeds on test db
+      ```
+      before((done)=> {
+        knex.migrate.latest().then(()=> {
+            return knex.seed.run()
+        }).then(()=> done())
+    });
+    ```
 * Make sure the tests are working!
 * List all records with GET /api/v1/stickers
-    * Add test
+    * Add test using supertest
+      ```
+      const request = require('supertest');
+      const expect = require('chai').expect;
+      const app = require('../app.js');
+
+      const commonHeaders = {
+        // Authorization: 'Bearer '+ reply.body.token,
+        'Content-Type': 'application/json'
+      };
+      describe('GET /api/v1/stickers', function() {
+        it('responds with status 200', function(done) {
+          const response = await request(app)
+            .get('/api/v1/stickers')
+            .set(commonHeaders);
+          expect(response.status).toBe(200);
+        });
+      });
+      ```
+      Reference: https://www.npmjs.com/package/supertest
 * Show one record with GET /api/v1/stickers/:id
   * Validate id
   * Create query
