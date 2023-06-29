@@ -1,7 +1,10 @@
 const knex = require('./knex');
 
 module.exports = {
-    getAll: function(){
+    getAll() {
         return knex('sticker');
-    }
-}
+    },
+    getOne(id) {
+        return knex('sticker').where('id', id).first();
+    },
+};

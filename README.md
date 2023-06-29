@@ -1,9 +1,9 @@
 # Node.js Express JSON API - CRUD Stickers
-https://github.com/w3cj/CRUD-stickers-server
-https://www.youtube.com/watch?v=xFsaRVNLtxI&list=PLM_i0obccy3uwR6ZYa7QE03xDRAqs4Aso&index=1&ab_channel=CodingGarden
+1. https://github.com/w3cj/CRUD-stickers-server
+2. https://www.youtube.com/watch?v=xFsaRVNLtxI&list=PLM_i0obccy3uwR6ZYa7QE03xDRAqs4Aso&index=1&ab_channel=CodingGarden
 
 
-We'll be using:
+We'll be using
 * Postgres for our database
 * knex.js for our database migrations, seeds and queries.
 * express.js for our JSON routes
@@ -25,8 +25,8 @@ We'll be using:
 * Create a server folder
     - mkdir server
   * Generate Express App
-    - cd server
-    - express
+    - $ cd server
+    - $ express
   * initialize git repo
     - git init
     - npm i gitignore -g    // Installl if not present
@@ -39,12 +39,14 @@ We'll be using:
     - knex init
 * Create sticker table migration
   - Table: Sticker
+  ```
   ==================================
   id          | serial(PK)
   title       | text
   description | text
   rating      | float
   url         | text
+  ```
   - knex migrate:latest
 * Seed sticker table with sample data
   - knex seed:run
@@ -118,3 +120,65 @@ We'll be using:
   * Validate id
   * Create query
   * Add test
+
+## [Eslint Documentation](https://eslint.org/docs/latest/)
+
+## [Set eslinter in your node project](https://mojitocoder.medium.com/how-to-add-code-linting-for-a-node-js-project-b210d8759cd5)
+  lint, or a linter, is a static code analysis tool used to flag programming errors, bugs, stylistic errors, and suspicious constructs.
+1. Step 1. Add eslint npm package as a development dependency.
+    ```
+    npm install eslint --save-dev
+    ```
+2. Step 2. Run eslint init and follow the wizard
+    ```
+    ./node_modules/.bin/eslint --init
+    ```
+3. Step 3. Add npm scripts
+    ```
+    "lint": "eslint .  --ext .js",
+    "lint-fix": "eslint --fix .  --ext .js"
+    ```
+4. Run
+    ```
+    npm run lint
+    ```
+
+## [Turning off eslint rule for a specific file](https://stackoverflow.com/questions/34764287/turning-off-eslint-rule-for-a-specific-file)
+Let's have a breakdown of the scenarios, like you always do, dear awesome developer!
+
+Here are two questions to ask yourself, first.
+
+Question One: How many "rules" do you want to ignore?
+All Rules
+One or more Specific Rules (e.g. quotes or semi)
+Question Two: How many "lines/files" do you want to ignore?
+One or more Lines
+All lines in one or more Files
+Everywhere
+Now, based on the your answers, there are 2 × 3 = 6 cases.
+
+1) Disabling "All rules"
+Case 1.1: You want to disable "All Rules" for "One or more Lines"
+
+Two ways you can do this:
+
+Put /* eslint-disable-line */ at the end of the line(s),
+or /* eslint-disable-next-line */ right before the line.
+Case 1.2: You want to disable "All Rules" for "One File"
+
+Put the comment of /* eslint-disable */ at the top of the file.
+Case 1.3: You want to disable "All rules" for "Some Files"
+
+There are 3 ways you can do this:
+
+You can go with 1.2 and add /* eslint-disable */ on top of the files, one by one.
+You can put the file name(s) in .eslintignore. This works well, especially if you have a path that you want to be ignored. (e.g. apidoc/**)
+Alternatively, if you don't want to have a separate .eslintignore file, you can add "eslintIgnore": ["file1.js", "file2.js"] in package.json as instructed here.
+2) Disabling "Some Rules"
+Case 2.1: You want to disable "Some Rules" for "One or more Lines"
+
+Two ways you can do this:
+
+You can put /* eslint-disable-line quotes */ (replace quotes with your rules) at the end of the line(s),
+
+or /* eslint-disable-next-line no-alert, quotes, semi */ before the line.

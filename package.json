@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "SET DEBUG=server:* & node ./bin/www",
-    "dev": "SET DEBUG=server:* & nodemon",
-    "test": "(dropdb --if-exists --username=postgres test_express_crud && createdb --username=postgres test_express_crud) && NODE_ENV=test mocha"
+    "dev": "SET DEBUG=server:* & eslint .  --ext .js & nodemon",
+    "test": "(dropdb --if-exists --username=postgres test_express_crud && createdb --username=postgres test_express_crud) && NODE_ENV=test mocha",
+    "lint": "eslint .  --ext .js",
+    "lint-fix": "eslint --fix .  --ext .js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -18,6 +20,9 @@
   },
   "devDependencies": {
     "chai": "^4.3.7",
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
     "supertest": "^6.3.3"
