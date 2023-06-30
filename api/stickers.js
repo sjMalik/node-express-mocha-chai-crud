@@ -5,8 +5,14 @@ const router = express.Router();
 const queries = require('../db/queries');
 
 function isValidId(req, _res, next) {
-    if (!isNaN(req.params.id)) return next();
+    if (!req.params.id.isNaN) return next();
     return next(new Error('Invalid Id'));
+}
+
+function isValidSticker(sticker) {
+    const isValidTitle = typeof sticker.title === 'string' && sticker.title.trim() !== '';
+    const isValidUrl = typeof sticker.url === 'string' && sticker.url.trim() !== '';
+    return isValidTitle && isValidUrl;
 }
 
 router.get('/', async (req, res, next) => {
@@ -26,6 +32,42 @@ router.get('/:id', isValidId, async (req, res, next) => {
         } else {
             next();
         }
+    } catch (e) {
+        next(e);
+    }
+});
+
+router.post('/', async (req, res, next) => {
+    try {
+        if (isValidSticker(req.body)) {
+            const repsonse = await queries.create(req.body);
+            res.json(repsonse[0]);
+        } else {
+            throw new Error('Not a valid sticker');
+        }
+    } catch (e) {
+        next(e);
+    }
+});
+
+router.put('/:id', isValidId, async (req, res, next) => {
+    try {
+        if (isValidSticker(req.body)) {
+            const response = await queries.update(req.params.id, req.body);
+            res.json(response[0]);
+        } else {
+            throw new Error('Not a valid request');
+        }
+    } catch (e) {
+        next(e);
+    }
+});
+
+router.delete('/:id', isValidId, async (req, res, next) => {
+    try {
+        const reply = await queries.delete(req.params.id);
+        console.log(reply);
+        res.status(200).end();
     } catch (e) {
         next(e);
     }

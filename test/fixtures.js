@@ -63,3 +63,10 @@ module.exports.stickers = [
         url: 'http://devstickers.com/assets/img/pro/4gem.png',
       },
 ];
+
+module.exports.sticker = {
+  title: 'git',
+  desc: 'git logo',
+  rating: 1,
+  url: 'https://devstickers.com/assets/img/pro/4mh6.png',
+};
