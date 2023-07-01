@@ -1,3 +1,4 @@
+const debug = require('debug')('server:sticker');
 const express = require('express');
 
 const router = express.Router();
@@ -38,6 +39,7 @@ router.get('/:id', isValidId, async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+    debug(req.body);
     try {
         if (isValidSticker(req.body)) {
             const repsonse = await queries.create(req.body);
@@ -65,8 +67,7 @@ router.put('/:id', isValidId, async (req, res, next) => {
 
 router.delete('/:id', isValidId, async (req, res, next) => {
     try {
-        const reply = await queries.delete(req.params.id);
-        console.log(reply);
+        await queries.delete(req.params.id);
         res.status(200).end();
     } catch (e) {
         next(e);

@@ -182,3 +182,23 @@ Two ways you can do this:
 You can put /* eslint-disable-line quotes */ (replace quotes with your rules) at the end of the line(s),
 
 or /* eslint-disable-next-line no-alert, quotes, semi */ before the line.
+
+## [Add Swagger](https://github.com/syed-ashraf123/swagger-express/tree/master)
+1. Install dependency
+```
+npm install swagger-ui-express and yamljs
+```
+2. Add the below in `app.js`
+```
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerJsDocs = YAML.load('./api.yaml');
+
+app.use('/api-dcos', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs));
+```
+3. Create `nodemon.json` file root directory of project and add below
+```
+{
+    "ext": ".ts, .js, .mjs, .json, .yaml"
+}
+```

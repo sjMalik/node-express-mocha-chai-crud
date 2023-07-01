@@ -1,0 +1,104 @@
+swagger: "2.0"
+info:
+  title: Node Express Server CRUD Stickers
+  description: APIs for CRUD operation of stickers unit testing with mocha, chai and supertest
+  version: 1.0
+  contact:
+    email: surajit94malik@gmail.com
+  lisence:
+    name: Test
+    url: test.com
+schemes: [http, https]
+
+components:
+  schemas:
+    Sticker:
+      type: object
+      required:
+        - title
+        - url
+      properties:
+        title:
+          type: string
+        desc:
+          type: string
+        rating:
+          type: integer
+        url:
+          type: string
+
+paths:
+  /api/v1/stickers:
+    get:
+      summary: Get list of stickers
+      descripton: Respond with array of stickers
+      responses:
+        200:
+          description: Successfull response
+        500:
+          description: Bad request
+    post:
+      summary: Add a new sticker
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Sticker"
+      responses:
+        200:
+          descripton: Suceess
+          schema:
+            $ref: "#/components/schemas/Sticker"
+  /api/v1/stickers/{userId}:
+    get:
+      summary: Returns a user by ID.
+      description: Returns the Specific User
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+      responses: 
+        '200':
+          description: OK
+        404:
+          description: Not found the sticker with id provided
+        500:
+          description: Internal server error
+    put:
+      summary: Update the sticker
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - in: body
+          name: body
+          schema:
+            $ref: "#/components/schemas/Sticker"
+      responses:
+        200:
+          description: Success
+        schema:
+          $ref: "#/components/schemas/Sticker"
+    delete:
+      summary: Delete a sticker
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+
+
+        
