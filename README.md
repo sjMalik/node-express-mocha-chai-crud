@@ -127,12 +127,11 @@ We'll be using
   lint, or a linter, is a static code analysis tool used to flag programming errors, bugs, stylistic errors, and suspicious constructs.
 1. Step 1. Add eslint npm package as a development dependency.
     ```
-    npm install eslint --save-dev or
-    npm init @eslint/config
+    npm install eslint --save-dev
     ```
 2. Step 2. Run eslint init and follow the wizard
     ```
-    ./node_modules/.bin/eslint --init
+    npm init @eslint/config
     ```
 3. Step 3. Add npm scripts
     ```
